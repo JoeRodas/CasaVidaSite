@@ -13,6 +13,10 @@ export default function Home() {
       <p>
         <Link href="/posts">Read our latest posts</Link>
       </p>
+      <main>
+        <h1>Welcome to Casa-VidaOS</h1>
+        <p>The operating system for a better living.</p>
+      </main>
     </div>
   );
 }
