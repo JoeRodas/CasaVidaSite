@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { posts } from '../../lib/posts';
 
 export default function PostsList({ posts }) {
   return (
@@ -24,5 +25,6 @@ export async function getServerSideProps({ req }) {
   const baseUrl = `${protocol}://${req.headers.host}`;
   const res = await fetch(`${baseUrl}/api/posts`);
   const posts = await res.json();
+export async function getStaticProps() {
   return { props: { posts } };
 }
