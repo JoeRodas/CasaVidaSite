@@ -1,4 +1,5 @@
 import Head from 'next/head';
+
 import { posts, getPost } from '../../lib/posts';
 
 export default function Post({ post }) {
@@ -14,6 +15,15 @@ export default function Post({ post }) {
   );
 }
 
+export async function getServerSideProps({ params, req }) {
+  const protocol = req.headers['x-forwarded-proto'] || 'http';
+  const baseUrl = `${protocol}://${req.headers.host}`;
+  const res = await fetch(`${baseUrl}/api/posts/${params.id}`);
+  if (!res.ok) {
+    return { notFound: true };
+  }
+  const post = await res.json();
+  return { props: { post } };
 export async function getStaticPaths() {
   return {
     paths: posts.map(p => ({ params: { id: p.id } })),

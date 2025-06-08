@@ -20,6 +20,11 @@ export default function PostsList({ posts }) {
   );
 }
 
+export async function getServerSideProps({ req }) {
+  const protocol = req.headers['x-forwarded-proto'] || 'http';
+  const baseUrl = `${protocol}://${req.headers.host}`;
+  const res = await fetch(`${baseUrl}/api/posts`);
+  const posts = await res.json();
 export async function getStaticProps() {
   return { props: { posts } };
 }
